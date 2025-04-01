@@ -3,7 +3,7 @@ Contributors: FormAssembly / Drew Buschhorn
 Tags: forms
 Requires at least: 4.0.0
 Tested up to: 6.7
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 
 Quickly embed FormAssembly web forms with the FormAssembly WordPress Plugin! Create contact forms, applications, payment forms, & surveys.
 
@@ -25,8 +25,11 @@ Replace 123456 with your form ID. Learn more: https://help.formassembly.com/know
 Example shortcode for Basic, Professional, & Premier plans:
 [formassembly formid=123456]
 
-Shortcode for Essentials, Team, Enterprise or Government plans:
-[formassembly formid=123456 server=”https://your.server.tld”]
+Shortcode for Essentials, Team or Enterprise plans:
+[formassembly formid=123456 shortname=”organization”]
+
+Shortcode for Government plans:
+[formassembly formid=123456 shortname=”organization.gov”]
 
 To use this plugin, you will need a FormAssembly account.
 
@@ -35,8 +38,11 @@ To use this plugin, you will need a FormAssembly account.
 FormAssembly Basic, Professional, & Premier plans – (tfaforms.com):
 [formassembly formid=123456]
 
-FormAssembly Essentials, Team, Enterprise or Government plans – (Most commonly: organization.tfaforms.net):
-[formassembly formid=123456 server=”https://your.server.tld”]
+FormAssembly Essentials, Team or Enterprise plans – (organization.tfaforms.net):
+[formassembly formid=123456 shortname=”organization”]
+
+Government plans – (organization.govfa.net):
+[formassembly formid=123456 shortname=”organization.gov”]
 
 Publish with an iframe - (Inline Frame):
 
@@ -47,9 +53,9 @@ For instance, a benefit to using an iframe would be to avoid conflicting CSS rul
 
 OR
 
-[formassembly formid=123456 server="https://your.server.tld" iframe=1]
+[formassembly formid=123456 shortname="organization" iframe=1]
 
-Publish a Workflow:
+Publish a Legacy Workflow:
 
 [formassembly workflowid=1234]
 
@@ -65,6 +71,8 @@ https://help.formassembly.com/knowledgebase/articles/340363-wordpress
 1. Place [formassembly formid=NNNN] shortcode in your post.
 
 == Changelog ==
+= 3.0.1 =
+*   Update documentation
 = 3.0.0 =
 *   Security improvements
 *   Dropped support/use of custom domain in server shortcode
