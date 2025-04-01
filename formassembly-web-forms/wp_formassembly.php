@@ -4,7 +4,7 @@
  * Plugin Name: WP-FormAssembly
  * Plugin URI: http://www.formassembly.com/plugins/wordpress/
  * Description: Embed a FormAssembly Web Form in a WordPress Post or Page. To use, add a [formassembly formid=NNNN] tag to your post. To create your web form, go to https://www.formassembly.com
- * Version: 2.0.11
+ * Version: 3.0.0
  * Author: FormAssembly / Drew Buschhorn
  * Author URI: https://www.formassembly.com
  */
@@ -25,7 +25,8 @@
  * Advanced Attributes:
  *  iframe="true"         Render as iframe
  *  style="XXX: YYYY;"    Add CSS overrides to either Form or Iframe
- *  server="a URL"        Override the default server (https://app.formassembly.com) to retrieve the form from a different FormAssembly instance, e.g., "https://acme.tfaforms.net"
+ *  shortname="xxx"       For non-APP-hosted forms, prepends shortname to .tfaforms.net
+ *  server="a URL"        Backward compatibility – if set and matches *.tfaforms.net, its shortname is extracted.
  */
 
 
@@ -51,32 +52,24 @@ function fa_add($atts)
         $qs = '?' . $qs;
     };
 
-    if (isset($atts['server'])) {
-        if (wp_http_validate_url($atts['server']) === false) {
-            return '';
-        }
-        $host_url = $atts['server'];
-    } else {
-        $host_url = "https://app.formassembly.com";
-    }
-
+    $host_url = resolve_host_url($atts);
     $new_content = '';
 
     if (isset($atts['formid']) || isset($atts['workflowid'])) {
 
         $action_url = "forms/view";
-        $fa_id = $atts['formid'];
+        $fa_id = absint($atts['formid']);
 
         if (isset($atts['workflowid'])) {
             $action_url = "workflows/start";
-            $fa_id = $atts['workflowid'];
+            $fa_id = absint($atts['workflowid']);
         }
 
         // Add style options in to combat wordpresses' default centering of forms.
         if (!isset($atts['style'])) {
             $style = "<style>.wForm form{text-align: left;}</style>";
         } else {
-            $style = "<style>.wForm form{" . $atts['style'] . "}</style>";
+            $style = "<style>.wForm form{" . htmlspecialchars($atts['style'], ENT_QUOTES) . "}</style>";
         }
 
         if (isset($atts['iframe'])) {
@@ -200,4 +193,31 @@ function isTfaNextInvalidForWorkflowId($tfaNext, $workflowId)
     }
 
     return false;
+}
+
+function resolve_host_url($atts)
+{
+    if (!empty($atts['shortname'])) {
+        $shortname = preg_replace('/[^a-zA-Z0-9.\-]/', '', $atts['shortname']);
+        if (substr($shortname, -4) === '.gov') {
+            $shortname = substr($shortname, 0, -4);
+            return "https://{$shortname}.govfa.net";
+        }
+
+        return "https://{$shortname}.tfaforms.net";
+    }
+
+    if (isset($atts['server']) && wp_http_validate_url($atts['server']) !== false) {
+        $parsed_url = parse_url($atts['server']);
+        if (!empty($parsed_url['host'])) {
+            if (preg_match('/^(.*)\.tfaforms\.net$/i', $parsed_url['host'], $matches)) {
+                return "https://{$matches[1]}.tfaforms.net";
+            }
+            if (preg_match('/^(.*)\.govfa\.net$/i', $parsed_url['host'], $matches)) {
+                return "https://{$matches[1]}.govfa.net";
+            }
+        }
+    }
+
+    return "https://app.formassembly.com";
 }
