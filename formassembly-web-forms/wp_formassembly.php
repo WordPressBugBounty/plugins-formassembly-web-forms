@@ -4,7 +4,7 @@
  * Plugin Name: WP-FormAssembly
  * Plugin URI: http://www.formassembly.com/plugins/wordpress/
  * Description: Embed a FormAssembly Web Form in a WordPress Post or Page. To use, add a [formassembly formid=NNNN] tag to your post. To create your web form, go to https://www.formassembly.com
- * Version: 3.0.1
+ * Version: 3.0.2
  * Author: FormAssembly / Drew Buschhorn
  * Author URI: https://www.formassembly.com
  */
@@ -155,7 +155,8 @@ function isTfaNextInvalid($tfaNext, $faID)
         preg_match('/^\/forms\/review\/' . $faID . '.*$/m', $tfaNext) === 0 &&
         preg_match('/^\/forms\/resume\/' . $faID . '.*$/m', $tfaNext) === 0 &&
         preg_match('/^\/forms\/reset_password\/' . $faID . '.*$/m', $tfaNext) === 0 &&
-        preg_match('/^\/forms\/help\/' . $faID . '.*$/m', $tfaNext) === 0
+        preg_match('/^\/forms\/help\/' . $faID . '.*$/m', $tfaNext) === 0 &&
+        preg_match('/^\/wf\/[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+(\?.*)?$/', $tfaNext) === 0
     ) {
         return true;
     }

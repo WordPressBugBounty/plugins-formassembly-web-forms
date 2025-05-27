@@ -3,7 +3,7 @@ Contributors: FormAssembly / Drew Buschhorn
 Tags: forms
 Requires at least: 4.0.0
 Tested up to: 6.7
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 
 Quickly embed FormAssembly web forms with the FormAssembly WordPress Plugin! Create contact forms, applications, payment forms, & surveys.
 
