@@ -4,7 +4,7 @@
  * Plugin Name: WP-FormAssembly
  * Plugin URI: http://www.formassembly.com/plugins/wordpress/
  * Description: Embed a FormAssembly Web Form in a WordPress Post or Page. To use, add a [formassembly formid=NNNN] tag to your post. To create your web form, go to https://www.formassembly.com
- * Version: 3.0.2
+ * Version: 3.0.3
  * Author: FormAssembly / Drew Buschhorn
  * Author URI: https://www.formassembly.com
  */

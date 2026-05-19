@@ -2,8 +2,8 @@
 Contributors: FormAssembly / Drew Buschhorn
 Tags: forms
 Requires at least: 4.0.0
-Tested up to: 6.7
-Stable tag: 3.0.2
+Tested up to: 7.0
+Stable tag: 3.0.3
 
 Quickly embed FormAssembly web forms with the FormAssembly WordPress Plugin! Create contact forms, applications, payment forms, & surveys.
 
@@ -71,6 +71,10 @@ https://help.formassembly.com/knowledgebase/articles/340363-wordpress
 1. Place [formassembly formid=NNNN] shortcode in your post.
 
 == Changelog ==
+= 3.0.3 =
+*   Test against WordPress 7.0
+= 3.0.2 =
+*   Fix Save & Resume feature
 = 3.0.1 =
 *   Update documentation
 = 3.0.0 =
